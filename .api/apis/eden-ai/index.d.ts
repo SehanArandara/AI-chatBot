@@ -2321,4 +2321,4 @@ declare class SDK {
     text_topic_extraction_create(body: types.TextTopicExtractionCreateBodyParam): Promise<FetchResponse<200, types.TextTopicExtractionCreateResponse200>>;
 }
 declare const createSDK: SDK;
-export = createSDK;
+export default createSDK;

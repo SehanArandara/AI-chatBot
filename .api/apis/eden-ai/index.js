@@ -1,14 +1,10 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var oas_1 = __importDefault(require("oas"));
-var core_1 = __importDefault(require("api/dist/core"));
-var openapi_json_1 = __importDefault(require("./openapi.json"));
-var SDK = /** @class */ (function () {
-    function SDK() {
-        this.spec = oas_1.default.init(openapi_json_1.default);
-        this.core = new core_1.default(this.spec, 'eden-ai/2.0 (api/6.1.1)');
+import Oas from 'oas';
+import APICore from 'api/dist/core';
+import definition from './openapi.json';
+class SDK {
+    constructor() {
+        this.spec = Oas.init(definition);
+        this.core = new APICore(this.spec, 'eden-ai/2.0 (api/6.1.1)');
     }
     /**
      * Optionally configure various options that the SDK allows.
@@ -17,9 +13,9 @@ var SDK = /** @class */ (function () {
      * @param config.timeout Override the default `fetch` request timeout of 30 seconds. This number
      * should be represented in milliseconds.
      */
-    SDK.prototype.config = function (config) {
+    config(config) {
         this.core.setConfig(config);
-    };
+    }
     /**
      * If the API you're using requires authentication you can supply the required credentials
      * through this method and the library will magically determine how they should be used
@@ -41,15 +37,10 @@ var SDK = /** @class */ (function () {
      * @see {@link https://spec.openapis.org/oas/v3.1.0#fixed-fields-22}
      * @param values Your auth credentials for the API; can specify up to two strings or numbers.
      */
-    SDK.prototype.auth = function () {
-        var _a;
-        var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            values[_i] = arguments[_i];
-        }
-        (_a = this.core).setAuth.apply(_a, values);
+    auth(...values) {
+        this.core.setAuth(...values);
         return this;
-    };
+    }
     /**
      * If the API you're using offers alternate server URLs, and server variables, you can tell
      * the SDK which one to use with this method. To use it you can supply either one of the
@@ -69,10 +60,9 @@ var SDK = /** @class */ (function () {
      * @param url Server URL
      * @param variables An object of variables to replace into the server URL.
      */
-    SDK.prototype.server = function (url, variables) {
-        if (variables === void 0) { variables = {}; }
+    server(url, variables = {}) {
         this.core.setServer(url, variables);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -106,9 +96,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextAiDetectionCreateResponse404>
      * @throws FetchError<500, types.TextAiDetectionCreateResponse500>
      */
-    SDK.prototype.text_ai_detection_create = function (body) {
+    text_ai_detection_create(body) {
         return this.core.fetch('/text/ai_detection', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -175,9 +165,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextAnonymizationCreateResponse404>
      * @throws FetchError<500, types.TextAnonymizationCreateResponse500>
      */
-    SDK.prototype.text_anonymization_create = function (body) {
+    text_anonymization_create(body) {
         return this.core.fetch('/text/anonymization', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -361,9 +351,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextChatCreateResponse404>
      * @throws FetchError<500, types.TextChatCreateResponse500>
      */
-    SDK.prototype.text_chat_create = function (body) {
+    text_chat_create(body) {
         return this.core.fetch('/text/chat', 'post', body);
-    };
+    }
     /**
      * Streamed version of Chat feature, the raw text will be streamed chunk by chunk.
      *
@@ -371,9 +361,9 @@ var SDK = /** @class */ (function () {
      *
      * @summary Chat Stream
      */
-    SDK.prototype.text_chat_stream_create = function (body) {
+    text_chat_stream_create(body) {
         return this.core.fetch('/text/chat/stream', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -613,9 +603,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextCodeGenerationCreateResponse404>
      * @throws FetchError<500, types.TextCodeGenerationCreateResponse500>
      */
-    SDK.prototype.text_code_generation_create = function (body) {
+    text_code_generation_create(body) {
         return this.core.fetch('/text/code_generation', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -638,9 +628,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextCustomClassificationCreateResponse404>
      * @throws FetchError<500, types.TextCustomClassificationCreateResponse500>
      */
-    SDK.prototype.text_custom_classification_create = function (body) {
+    text_custom_classification_create(body) {
         return this.core.fetch('/text/custom_classification', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -663,9 +653,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextCustomNamedEntityRecognitionCreateResponse404>
      * @throws FetchError<500, types.TextCustomNamedEntityRecognitionCreateResponse500>
      */
-    SDK.prototype.text_custom_named_entity_recognition_create = function (body) {
+    text_custom_named_entity_recognition_create(body) {
         return this.core.fetch('/text/custom_named_entity_recognition', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -756,9 +746,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextEmbeddingsCreateResponse404>
      * @throws FetchError<500, types.TextEmbeddingsCreateResponse500>
      */
-    SDK.prototype.text_embeddings_create = function (body) {
+    text_embeddings_create(body) {
         return this.core.fetch('/text/embeddings', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -781,9 +771,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextEmotionDetectionCreateResponse404>
      * @throws FetchError<500, types.TextEmotionDetectionCreateResponse500>
      */
-    SDK.prototype.text_emotion_detection_create = function (body) {
+    text_emotion_detection_create(body) {
         return this.core.fetch('/text/emotion_detection', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -818,9 +808,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextEntitySentimentCreateResponse404>
      * @throws FetchError<500, types.TextEntitySentimentCreateResponse500>
      */
-    SDK.prototype.text_entity_sentiment_create = function (body) {
+    text_entity_sentiment_create(body) {
         return this.core.fetch('/text/entity_sentiment', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -970,9 +960,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextGenerationCreateResponse404>
      * @throws FetchError<500, types.TextGenerationCreateResponse500>
      */
-    SDK.prototype.text_generation_create = function (body) {
+    text_generation_create(body) {
         return this.core.fetch('/text/generation', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -1224,9 +1214,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextKeywordExtractionCreateResponse404>
      * @throws FetchError<500, types.TextKeywordExtractionCreateResponse500>
      */
-    SDK.prototype.text_keyword_extraction_create = function (body) {
+    text_keyword_extraction_create(body) {
         return this.core.fetch('/text/keyword_extraction', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -1405,9 +1395,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextModerationCreateResponse404>
      * @throws FetchError<500, types.TextModerationCreateResponse500>
      */
-    SDK.prototype.text_moderation_create = function (body) {
+    text_moderation_create(body) {
         return this.core.fetch('/text/moderation', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -1549,9 +1539,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextNamedEntityRecognitionCreateResponse404>
      * @throws FetchError<500, types.TextNamedEntityRecognitionCreateResponse500>
      */
-    SDK.prototype.text_named_entity_recognition_create = function (body) {
+    text_named_entity_recognition_create(body) {
         return this.core.fetch('/text/named_entity_recognition', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -1574,9 +1564,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextPlagiaDetectionCreateResponse404>
      * @throws FetchError<500, types.TextPlagiaDetectionCreateResponse500>
      */
-    SDK.prototype.text_plagia_detection_create = function (body) {
+    text_plagia_detection_create(body) {
         return this.core.fetch('/text/plagia_detection', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -1598,9 +1588,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextPromptOptimizationCreateResponse404>
      * @throws FetchError<500, types.TextPromptOptimizationCreateResponse500>
      */
-    SDK.prototype.text_prompt_optimization_create = function (body) {
+    text_prompt_optimization_create(body) {
         return this.core.fetch('/text/prompt_optimization', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -1623,9 +1613,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextQuestionAnswerCreateResponse404>
      * @throws FetchError<500, types.TextQuestionAnswerCreateResponse500>
      */
-    SDK.prototype.text_question_answer_create = function (body) {
+    text_question_answer_create(body) {
         return this.core.fetch('/text/question_answer', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -1649,9 +1639,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextSearchCreateResponse404>
      * @throws FetchError<500, types.TextSearchCreateResponse500>
      */
-    SDK.prototype.text_search_create = function (body) {
+    text_search_create(body) {
         return this.core.fetch('/text/search', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -1737,9 +1727,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextSentimentAnalysisCreateResponse404>
      * @throws FetchError<500, types.TextSentimentAnalysisCreateResponse500>
      */
-    SDK.prototype.text_sentiment_analysis_create = function (body) {
+    text_sentiment_analysis_create(body) {
         return this.core.fetch('/text/sentiment_analysis', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -2008,9 +1998,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextSpellCheckCreateResponse404>
      * @throws FetchError<500, types.TextSpellCheckCreateResponse500>
      */
-    SDK.prototype.text_spell_check_create = function (body) {
+    text_spell_check_create(body) {
         return this.core.fetch('/text/spell_check', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -2247,9 +2237,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextSummarizeCreateResponse404>
      * @throws FetchError<500, types.TextSummarizeCreateResponse500>
      */
-    SDK.prototype.text_summarize_create = function (body) {
+    text_summarize_create(body) {
         return this.core.fetch('/text/summarize', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -2321,9 +2311,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextSyntaxAnalysisCreateResponse404>
      * @throws FetchError<500, types.TextSyntaxAnalysisCreateResponse500>
      */
-    SDK.prototype.text_syntax_analysis_create = function (body) {
+    text_syntax_analysis_create(body) {
         return this.core.fetch('/text/syntax_analysis', 'post', body);
-    };
+    }
     /**
      * <details><summary><strong style='color: #0072a3; cursor: pointer'>Available
      * Providers</strong></summary>
@@ -2379,10 +2369,9 @@ var SDK = /** @class */ (function () {
      * @throws FetchError<404, types.TextTopicExtractionCreateResponse404>
      * @throws FetchError<500, types.TextTopicExtractionCreateResponse500>
      */
-    SDK.prototype.text_topic_extraction_create = function (body) {
+    text_topic_extraction_create(body) {
         return this.core.fetch('/text/topic_extraction', 'post', body);
-    };
-    return SDK;
-}());
-var createSDK = (function () { return new SDK(); })();
-module.exports = createSDK;
+    }
+}
+const createSDK = (() => { return new SDK(); })();
+export default createSDK;
