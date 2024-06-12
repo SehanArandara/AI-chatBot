@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "eden-ai",
+      "source": "@eden-ai/v2.0#1g8ypvlw7xizq3",
+      "integrity": "sha512-JD8QvwS6QkeYtHgi9/ySza2A0QqJzx4ZsCkIqQgCKyl3mxfCIhICQv7rLGB01QKkTnNl1/XmPi6wG6wiNq+aHQ==",
+      "installerVersion": "6.1.1"
+    }
+  ]
+}
