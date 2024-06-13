@@ -33,7 +33,7 @@ function App() {
           response_as_dict: true,
           attributes_as_list: false,
           show_original_response: false,
-          temperature: 0,
+          temperature: 1,
           providers: ['openai'],
           texts: [text],
           question: question,
